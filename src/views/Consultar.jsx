@@ -37,7 +37,7 @@ export default function Consultar() {
     // Resetea el mensaje de error y el producto antes de hacer la solicitud.
     setGlobalErrorMsg('');
     setProducto(null);
-    
+
     setSpinner(true); // Muestra el spinner para indicar que la solicitud está en curso.
     // Simula un retraso de 1 segundo antes de enviar la solicitud (opcional).
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -68,69 +68,76 @@ export default function Consultar() {
   };
 
   return (
-    <div className="flex flex-col items-center my-4">
-      <form
-        className="border border-gray-100 rounded-xl w-9/12 md:w-3/12 p-4 shadow-md"
-        onSubmit={handleSubmit}
-      >
-        <div className="text-center font-bold">Consultar Producto</div>
+    <>
+      <a
+        href='https://joannywerner.com/dashboardmern'
+        className="ml-5 underline">
+        Regresar al Dashboard
+      </a>
+      <div className="flex flex-col items-center my-4">
+        <form
+          className="border border-gray-100 rounded-xl w-9/12 md:w-3/12 p-4 shadow-md"
+          onSubmit={handleSubmit}
+        >
+          <div className="text-center font-bold">Consultar Producto</div>
 
-        <div className="mt-4">
-          <label htmlFor="input-id" className="text-gray-500">Id Producto <span className='text-red-500'>*</span></label>
-          <input
-            type="number"
-            placeholder="Escribe el id del producto"
-            id="input-id"
-            className="border-gray-100 focus:ring-green-400 bg-gray-100 p-1 rounded-xl w-full outline-none focus:ring-1"
-            value={idproducto}
-            onChange={handleIdProductoChange}
-          />
-        </div>
+          <div className="mt-4">
+            <label htmlFor="input-id" className="text-gray-500">Id Producto <span className='text-red-500'>*</span></label>
+            <input
+              type="number"
+              placeholder="Escribe el id del producto"
+              id="input-id"
+              className="border-gray-100 focus:ring-green-400 bg-gray-100 p-1 rounded-xl w-full outline-none focus:ring-1"
+              value={idproducto}
+              onChange={handleIdProductoChange}
+            />
+          </div>
 
-        <button
-          type="submit"
-          className={`
+          <button
+            type="submit"
+            className={`
           ${btn ? 'bg-gray-400' : 'bg-amber-600 hover:bg-amber-500'} w-full py-3 px-10 rounded-xl 
           text-white uppercase font-bold mt-5 flex items-center justify-center
         `}
-          disabled={btn}
-        >
-          {spinner ? (
-            <div className="flex items-center">
-              <ImSpinner9 className="animate-spin h-5 w-5 text-white mr-2" />
-              Consultando...
-            </div>
-          ) : (
-            'Consultar'
-          )}
-        </button>
+            disabled={btn}
+          >
+            {spinner ? (
+              <div className="flex items-center">
+                <ImSpinner9 className="animate-spin h-5 w-5 text-white mr-2" />
+                Consultando...
+              </div>
+            ) : (
+              'Consultar'
+            )}
+          </button>
 
-        {/* Muestra el mensaje de error, si existe. */}
-        {globalErrorMsg.msg && <Alert props={globalErrorMsg} />}
-      </form>
+          {/* Muestra el mensaje de error, si existe. */}
+          {globalErrorMsg.msg && <Alert props={globalErrorMsg} />}
+        </form>
 
-      <div className="flex justify-center w-full">
-        <table className="border-separate border-spacing-1 border border-slate-500 rounded w-full mx-1 my-4 md:w-1/2">
-          <caption className="caption-top font-bold">
-            Producto Consultado
-          </caption>
-          <thead>
-            <tr className="bg-slate-200">
-              <th className="border border-slate-600 rounded">Id Producto</th>
-              <th className="border border-slate-600 rounded">Nombre del Producto</th>
-            </tr>
-          </thead>
-          {/* Si se ha consultado un producto, muestra sus datos en la tabla. */}
-          {producto && (
-            <tbody>
-              <tr>
-                <td>{producto.idproducto}</td>
-                <td>{producto.nombre}</td>
+        <div className="flex justify-center w-full">
+          <table className="border-separate border-spacing-1 border border-slate-500 rounded w-full mx-1 my-4 md:w-1/2">
+            <caption className="caption-top font-bold">
+              Producto Consultado
+            </caption>
+            <thead>
+              <tr className="bg-slate-200">
+                <th className="border border-slate-600 rounded">Id Producto</th>
+                <th className="border border-slate-600 rounded">Nombre del Producto</th>
               </tr>
-            </tbody>
-          )}
-        </table>
+            </thead>
+            {/* Si se ha consultado un producto, muestra sus datos en la tabla. */}
+            {producto && (
+              <tbody>
+                <tr>
+                  <td>{producto.idproducto}</td>
+                  <td>{producto.nombre}</td>
+                </tr>
+              </tbody>
+            )}
+          </table>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
